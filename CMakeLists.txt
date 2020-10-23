@@ -61,6 +61,6 @@ aux_source_directory(./src/net SRC_NET_FILES)
 #创建工程文件
 add_executable(httptest.app ${SRC_FILES} ${SRC_BASE_FILES} ${SRC_NET_FILES})
 
-target_link_libraries(httptest.app ${muduo_net} ${muduo_base} pthread curl boost_locale boost_log boost_log_setup boost_system)
+target_link_libraries(httptest.app ${muduo_net} ${muduo_base} pthread curl boost_locale boost_log boost_log_setup boost_system crypto)
 
  

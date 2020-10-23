@@ -123,6 +123,33 @@ httptest.app/fast:
 	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/build
 .PHONY : httptest.app/fast
 
+src/aes256cbccodec.o: src/aes256cbccodec.cc.o
+
+.PHONY : src/aes256cbccodec.o
+
+# target to build an object file
+src/aes256cbccodec.cc.o:
+	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/aes256cbccodec.cc.o
+.PHONY : src/aes256cbccodec.cc.o
+
+src/aes256cbccodec.i: src/aes256cbccodec.cc.i
+
+.PHONY : src/aes256cbccodec.i
+
+# target to preprocess a source file
+src/aes256cbccodec.cc.i:
+	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/aes256cbccodec.cc.i
+.PHONY : src/aes256cbccodec.cc.i
+
+src/aes256cbccodec.s: src/aes256cbccodec.cc.s
+
+.PHONY : src/aes256cbccodec.s
+
+# target to generate assembly for a file
+src/aes256cbccodec.cc.s:
+	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/aes256cbccodec.cc.s
+.PHONY : src/aes256cbccodec.cc.s
+
 src/httpmessagecodec.o: src/httpmessagecodec.cc.o
 
 .PHONY : src/httpmessagecodec.o
@@ -204,6 +231,33 @@ src/regextool.cc.s:
 	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/regextool.cc.s
 .PHONY : src/regextool.cc.s
 
+src/shadowhttpclient.o: src/shadowhttpclient.cc.o
+
+.PHONY : src/shadowhttpclient.o
+
+# target to build an object file
+src/shadowhttpclient.cc.o:
+	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o
+.PHONY : src/shadowhttpclient.cc.o
+
+src/shadowhttpclient.i: src/shadowhttpclient.cc.i
+
+.PHONY : src/shadowhttpclient.i
+
+# target to preprocess a source file
+src/shadowhttpclient.cc.i:
+	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.i
+.PHONY : src/shadowhttpclient.cc.i
+
+src/shadowhttpclient.s: src/shadowhttpclient.cc.s
+
+.PHONY : src/shadowhttpclient.s
+
+# target to generate assembly for a file
+src/shadowhttpclient.cc.s:
+	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.s
+.PHONY : src/shadowhttpclient.cc.s
+
 src/shadowhttpserver.o: src/shadowhttpserver.cc.o
 
 .PHONY : src/shadowhttpserver.o
@@ -267,6 +321,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... httptest.app"
 	@echo "... edit_cache"
+	@echo "... src/aes256cbccodec.o"
+	@echo "... src/aes256cbccodec.i"
+	@echo "... src/aes256cbccodec.s"
 	@echo "... src/httpmessagecodec.o"
 	@echo "... src/httpmessagecodec.i"
 	@echo "... src/httpmessagecodec.s"
@@ -276,6 +333,9 @@ help:
 	@echo "... src/regextool.o"
 	@echo "... src/regextool.i"
 	@echo "... src/regextool.s"
+	@echo "... src/shadowhttpclient.o"
+	@echo "... src/shadowhttpclient.i"
+	@echo "... src/shadowhttpclient.s"
 	@echo "... src/shadowhttpserver.o"
 	@echo "... src/shadowhttpserver.i"
 	@echo "... src/shadowhttpserver.s"
