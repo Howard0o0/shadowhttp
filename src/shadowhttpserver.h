@@ -21,16 +21,15 @@ class ShadowhttpServer {
 	HttpMessageCodec			 codec_;
 
 	void OnServerConnection(const muduo::net::TcpConnectionPtr& conn);
-	void OnServerMessage(const muduo::net::TcpConnectionPtr& conn,
-			     muduo::net::Buffer* buf, muduo::Timestamp);
-	void HandleHttpProxyMessage(const muduo::net::TcpConnectionPtr& conn,
-				    std::string& message);
+	void OnServerMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf,
+			     muduo::Timestamp);
+	void HandleHttpProxyMessage(const muduo::net::TcpConnectionPtr& conn, std::string& message);
 	void OnConnectTunnelBuilt(const muduo::net::TcpConnectionPtr& server_conn,
-			   const muduo::net::TcpConnectionPtr& client_conn,
-			   const boost::any&		       context);
+				  const muduo::net::TcpConnectionPtr& client_conn,
+				  const boost::any&		      context);
 	void OnHttpforwardTunnelBuilt(const muduo::net::TcpConnectionPtr& server_conn,
-			   const muduo::net::TcpConnectionPtr& client_conn,
-			   const boost::any&		       context);
+				      const muduo::net::TcpConnectionPtr& client_conn,
+				      const boost::any&			  context);
 };
 
 #endif

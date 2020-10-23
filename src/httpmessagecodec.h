@@ -8,10 +8,9 @@ enum HttpProxyMessageType { CONNECT, FORWARD, HTTPFORWARD };
 
 class HttpMessageCodec {
     public:
-	enum HttpProxyMessageType
-			       GetHttpProxyMessageType(const std::string& message);
-	nethelper::SockAddress ScratchRemoteAddress(const std::string& message);
-	bool		       RefactorUrlpath(std::string& message);
+	enum HttpProxyMessageType GetHttpProxyMessageType(const std::string& message);
+	nethelper::SockAddress	  ScratchRemoteAddress(const std::string& message);
+	bool			  RefactorUrlpath(std::string& message);
 
     private:
 };

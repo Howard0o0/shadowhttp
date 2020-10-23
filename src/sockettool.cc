@@ -1,5 +1,5 @@
 #include "sockettool.h"
-#include "log.h"
+#include "muduo/base/Logging.h"
 #include <arpa/inet.h>
 #include <boost/log/trivial.hpp>
 #include <fcntl.h>
@@ -27,27 +27,29 @@ int SocketTool::CreateListenSocket(int port, int backlog, bool block) {
 	serv_addr.sin_port		 = htons(port);
 
 	char serv_ip[ INET_ADDRSTRLEN ];
-	if (inet_ntop(AF_INET, &serv_addr.sin_addr, serv_ip, sizeof(serv_ip)) == NULL) {
-		LOG(error) << "inet_ntop error";
+	if (inet_ntop(AF_INET, &serv_addr.sin_addr, serv_ip, sizeof(serv_ip))
+	    == NULL) {
+		LOG_ERROR << "inet_ntop error";
 		close(server_sock);
 		return CONVERT_IPADDR_TO_BINARY_FAILED;
 	}
 
-	LOG(info) << "bind in " << serv_ip << " : " << ntohs(serv_addr.sin_port);
-	if (bind(server_sock, ( struct sockaddr* )&serv_addr, serv_addr_len) < 0) {
-		LOG(error) << "bind error";
-		LOG(error) << strerror(errno);
+	LOG_INFO << "bind in " << serv_ip << " : " << ntohs(serv_addr.sin_port);
+	if (bind(server_sock, ( struct sockaddr* )&serv_addr, serv_addr_len)
+	    < 0) {
+		LOG_ERROR << "bind error";
+		LOG_ERROR << strerror(errno);
 		return BIND_FAILED;
 	}
 
-	LOG(debug) << "bind done";
+	LOG_DEBUG << "bind done";
 
 	if (listen(server_sock, backlog) < 0) {
-		LOG(error) << "listen error";
-		LOG(error) << strerror(errno);
+		LOG_ERROR << "listen error";
+		LOG_ERROR << strerror(errno);
 		return LISTEN_FAILED;
 	}
-	LOG(debug) << "listen done";
+	LOG_DEBUG << "listen done";
 
 	return server_sock;
 }
@@ -57,9 +59,9 @@ std::string SocketTool::ReadMessage(int socketfd, bool& pipe_broken) {
 	char	    readbuf[ READBUF_LEN ];
 	int	    read_len;
 	std::string msg = "";
-	// while ((read_len = recv(socketfd, readbuf, READBUF_LEN, MSG_DONTWAIT)) > 0) {
-	// 	readbuf[ read_len ] = '\0';
-	// 	msg += std::string(readbuf, read_len);
+	// while ((read_len = recv(socketfd, readbuf, READBUF_LEN,
+	// MSG_DONTWAIT)) > 0) { 	readbuf[ read_len ] = '\0'; 	msg +=
+	// std::string(readbuf, read_len);
 	// 	// printf("readbuf:%s\n", readbuf);
 	// }
 	read_len = recv(socketfd, readbuf, READBUF_LEN, MSG_DONTWAIT);
@@ -78,47 +80,54 @@ std::string SocketTool::ReadMessage(int socketfd, bool& pipe_broken) {
 
 bool SocketTool::IsIpv4address(const std::string& address) {
 
-	std::regex pattern("^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])"
-			   "\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-"
-			   "9]"
-			   "|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|["
-			   "1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{"
-			   "1}|[0-9])$");
+	std::regex pattern(
+		"^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])"
+		"\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-"
+		"9]"
+		"|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|["
+		"1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{"
+		"1}|[0-9])$");
 	return std::regex_match(address, pattern) ? true : false;
 }
 
-std::string SocketTool::GetIpv4addressByDomainName(const std::string& domain_name) {
+std::string
+SocketTool::GetIpv4addressByDomainName(const std::string& domain_name) {
 	struct hostent* host = gethostbyname(domain_name.c_str());
 	if (!host || !( struct in_addr* )host->h_addr_list[ 0 ]) {
-		LOG(error) << "domain_name illegal : " << domain_name;
+		LOG_ERROR << "domain_name illegal : " << domain_name;
 		return "";
 	}
-	return std::string(inet_ntoa(*( struct in_addr* )host->h_addr_list[ 0 ]));
+	return std::string(
+		inet_ntoa(*( struct in_addr* )host->h_addr_list[ 0 ]));
 }
 
-int SocketTool::ConnectToServer(std::string server_ip, uint16_t server_port, bool block) {
+int SocketTool::ConnectToServer(std::string server_ip, uint16_t server_port,
+				bool block) {
 	int socketfd = CreateSocket(block);
 	if (socketfd < 0) {
-		LOG(error) << "create socket failed";
+		LOG_ERROR << "create socket failed";
 		return CREATE_SOCKET_FAILED;
 	}
 
 	if (!IsIpv4address(server_ip))
 		server_ip = GetIpv4addressByDomainName(server_ip);
 	if (server_ip.empty()) {
-		LOG(error) << "server ip illegal";
+		LOG_ERROR << "server ip illegal";
 		return ILLEGAL_ADDRESS;
 	}
 
-	struct sockaddr_in remote_addr;		       //服务器端网络地址结构体
-	memset(&remote_addr, 0, sizeof(remote_addr));  //数据初始化--清零
-	remote_addr.sin_family	    = AF_INET;	       //设置为IP通信
-	remote_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());  //服务器IP地址
-	remote_addr.sin_port	    = htons(server_port);	     //服务器端口号
+	struct sockaddr_in remote_addr;
+	memset(&remote_addr, 0, sizeof(remote_addr));
+	remote_addr.sin_family	    = AF_INET;
+	remote_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());
+	remote_addr.sin_port	    = htons(server_port);
 
-	if (connect(socketfd, ( struct sockaddr* )&remote_addr, sizeof(struct sockaddr)) < 0) {
-		LOG(error) << "connect to server " << server_ip << ":" << server_port << " failed";
-		LOG(error) << strerror(errno);
+	if (connect(socketfd, ( struct sockaddr* )&remote_addr,
+		    sizeof(struct sockaddr))
+	    < 0) {
+		LOG_ERROR << "connect to server " << server_ip << ":"
+			  << server_port << " failed";
+		LOG_ERROR << strerror(errno);
 		return CONNECT_ERROR;
 	}
 
@@ -151,20 +160,20 @@ void SocketTool::SetSocketNonblocking(int sockfd) {
 
 	opts = fcntl(sockfd, F_GETFL);
 	if (opts < 0) {
-		LOG(error) << "fcntl F_GETFL error :" << errno;
+		LOG_ERROR << "fcntl F_GETFL error :" << errno;
 		exit(1);
 	}
 	opts = (opts | O_NONBLOCK);
 	if (fcntl(sockfd, F_SETFL, opts) < 0) {
-		LOG(error) << "fcntl F_SETFL error : " << errno;
+		LOG_ERROR << "fcntl F_SETFL error : " << errno;
 		exit(1);
 	}
 }
 
 bool SocketTool::SetSocketReuse(int socket_fd) {
 	int opt = 1;
-	if (setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, ( const void* )&opt,
-		       sizeof(opt))
+	if (setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+		       ( const void* )&opt, sizeof(opt))
 	    < 0)
 		return false;
 	return true;
@@ -175,8 +184,8 @@ int SocketTool::CreateSocket(bool block) {
 	int socketfd = socket(AF_INET, SOCK_STREAM, 0);
 
 	if (SetSocketReuse(socketfd) == false) {
-		LOG(error) << "set addr reuse failed";
-		LOG(error) << strerror(errno);
+		LOG_ERROR << "set addr reuse failed";
+		LOG_ERROR << strerror(errno);
 		return -1;
 	}
 	if (!block)

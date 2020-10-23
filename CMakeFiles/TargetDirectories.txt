@@ -1,0 +1,3 @@
+/home/howard/work/shadowhttp/CMakeFiles/rebuild_cache.dir
+/home/howard/work/shadowhttp/CMakeFiles/httptest.app.dir
+/home/howard/work/shadowhttp/CMakeFiles/edit_cache.dir
