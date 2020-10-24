@@ -53,29 +53,44 @@ void ShadowhttpClient::OnServerMessage(const muduo::net::TcpConnectionPtr& conn,
 	std::string message = buf->retrieveAllAsString();
 	LOG_DEBUG << "receive message from proxy client : \r\n" << message;
 
-	/* connect to shadowhttp-server */
-	TunnelPtr tunnel = std::make_shared< Tunnel >(
-		&this->eventloop_,
-		muduo::net::InetAddress(this->server_address_.ip, this->server_address_.port),
-		conn);
-	using std::placeholders::_1;
-	using std::placeholders::_2;
-	using std::placeholders::_3;
-	tunnel->setOnTunnelClientMessageCb(
-		std::bind(&ShadowhttpClient::OnClientMessage, this, _1, _2, _3));
-	tunnel->setContext(message);
-	tunnel->setTunnelBuiltCb(std::bind(&ShadowhttpClient::OnTunnelBuilt, this, _1, _2, _3));
-	tunnel->setup();
-	tunnel->connect();
-	this->tunnels_[ conn->name() ] = tunnel;
+	if (this->tunnels_.find(conn->name()) == this->tunnels_.end()) {
+		/* connect to shadowhttp-server */
+		TunnelPtr tunnel = std::make_shared< Tunnel >(
+			&this->eventloop_,
+			muduo::net::InetAddress(this->server_address_.ip,
+						this->server_address_.port),
+			conn);
+		using std::placeholders::_1;
+		using std::placeholders::_2;
+		using std::placeholders::_3;
+		tunnel->setOnTunnelClientMessageCb(
+			std::bind(&ShadowhttpClient::OnClientMessage, this, _1, _2, _3));
+		tunnel->setContext(message);
+		tunnel->setTunnelBuiltCb(
+			std::bind(&ShadowhttpClient::OnTunnelBuilt, this, _1, _2, _3));
+		tunnel->setup();
+		tunnel->connect();
+		this->tunnels_[ conn->name() ] = tunnel;
+	}
+	else if (!conn->getContext().empty()) {
+		const muduo::net::TcpConnectionPtr& clientConn =
+			boost::any_cast< const muduo::net::TcpConnectionPtr& >(conn->getContext());
+		std::string enc_message = this->aes_codec_->Encrype(message);
+		// std::string enc_message = message;
+		clientConn->send(enc_message);
+		LOG_INFO << "forward to sh-server done";
+	}
+	else
+		LOG_WARN << "can't find tunnel : " << conn->name();
 }
 
 void ShadowhttpClient::OnClientMessage(const muduo::net::TcpConnectionPtr& server_conn,
 				       const muduo::net::TcpConnectionPtr& client_conn,
 				       const std::string&		   message) {
 
-	LOG_DEBUG << "receive message from sh-sever : \r\n" << message;
 	std::string dec_message = this->aes_codec_->Decrype(message);
+	// std::string dec_message = message;
+	LOG_DEBUG << "receive message from sh-sever : \r\n" << dec_message;
 	server_conn->send(dec_message);
 	LOG_INFO << "forward to proxy client done";
 }
@@ -83,9 +98,10 @@ void ShadowhttpClient::OnClientMessage(const muduo::net::TcpConnectionPtr& serve
 void ShadowhttpClient::OnTunnelBuilt(const muduo::net::TcpConnectionPtr& server_conn,
 				     const muduo::net::TcpConnectionPtr& client_conn,
 				     const boost::any&			 context) {
-	const std::string& message    = boost::any_cast< const std::string& >(context);
-	std::string	   enc_mesage = this->aes_codec_->Encrype(message);
-	client_conn->send(enc_mesage);
+	const std::string& message     = boost::any_cast< const std::string& >(context);
+	std::string	   enc_message = this->aes_codec_->Encrype(message);
+	// std::string enc_message = message;
+	client_conn->send(enc_message);
 	LOG_INFO << "forward to sh-server done";
 }
 /* end of private methods */

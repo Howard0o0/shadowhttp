@@ -49,6 +49,7 @@ void ShadowhttpServer::OnServerMessage(const muduo::net::TcpConnectionPtr& conn,
 
 	std::string message	= buf->retrieveAllAsString();
 	std::string dec_message = this->aes_codec_->Decrype(message);
+	// std::string dec_message = message;
 	this->HandleHttpProxyMessage(conn, dec_message);
 }
 
@@ -108,7 +109,8 @@ void ShadowhttpServer::OnConnectTunnelBuilt(const muduo::net::TcpConnectionPtr& 
 					    const boost::any&			context) {
 	std::string connect_established = "HTTP/1.1 200 Connection "
 					  "Established\r\n\r\n";
-	server_conn->send(connect_established);
+	server_conn->send(this->aes_codec_->Encrype(connect_established));
+	// server_conn->send(connect_established);
 	LOG_INFO << "tunnel established";
 }
 void ShadowhttpServer::OnHttpforwardTunnelBuilt(const muduo::net::TcpConnectionPtr& server_conn,
@@ -124,6 +126,7 @@ void ShadowhttpServer::OnClientMessage(const muduo::net::TcpConnectionPtr& serve
 				       const std::string&		   message) {
 
 	std::string enc_message = this->aes_codec_->Encrype(message);
+	// std::string enc_message = message;
 	server_conn->send(enc_message);
 	LOG_INFO << "httpforward done";
 }
