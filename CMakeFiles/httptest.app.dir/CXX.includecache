@@ -73,8 +73,12 @@ vector
 /home/howard/work/shadowhttp/src/shadowhttpclient.cc
 shadowhttpclient.h
 /home/howard/work/shadowhttp/src/shadowhttpclient.h
+aes256cbccodec.h
+/home/howard/work/shadowhttp/src/aes256cbccodec.h
 muduo/net/Callbacks.h
 /home/howard/work/shadowhttp/src/muduo/net/Callbacks.h
+muduo/net/TcpConnection.h
+/home/howard/work/shadowhttp/src/muduo/net/TcpConnection.h
 sockettool.h
 /home/howard/work/shadowhttp/src/sockettool.h
 memory
@@ -83,6 +87,8 @@ openssl/des.h
 -
 
 /home/howard/work/shadowhttp/src/shadowhttpclient.h
+aescodec.h
+/home/howard/work/shadowhttp/src/aescodec.h
 httpmessagecodec.h
 /home/howard/work/shadowhttp/src/httpmessagecodec.h
 muduo/net/Callbacks.h

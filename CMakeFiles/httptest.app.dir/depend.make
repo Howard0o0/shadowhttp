@@ -349,6 +349,8 @@ CMakeFiles/httptest.app.dir/src/main.cc.o: third-party-libs/muduo/include/muduo/
 CMakeFiles/httptest.app.dir/src/regextool.cc.o: src/regextool.cc
 CMakeFiles/httptest.app.dir/src/regextool.cc.o: src/regextool.h
 
+CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o: src/aes256cbccodec.h
+CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o: src/aescodec.h
 CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o: src/httpmessagecodec.h
 CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o: src/shadowhttpclient.cc
 CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o: src/shadowhttpclient.h

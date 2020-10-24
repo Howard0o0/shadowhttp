@@ -13,6 +13,11 @@ class Tunnel : public std::enable_shared_from_this< Tunnel >, muduo::noncopyable
 				    const muduo::net::TcpConnectionPtr& client_conn,
 				    const boost::any&			context) >
 		TunnelBuiltCallback;
+	typedef std::function< void(const muduo::net::TcpConnectionPtr& server_conn,
+				    const muduo::net::TcpConnectionPtr& client_conn,
+				    const std::string&			message) >
+		OnTunnelClientMessageCallback;
+
 	Tunnel(muduo::net::EventLoop* loop, const muduo::net::InetAddress& serverAddr,
 	       const muduo::net::TcpConnectionPtr& serverConn)
 		: client_(loop, serverAddr, serverConn->name()), serverConn_(serverConn) {
@@ -53,6 +58,9 @@ class Tunnel : public std::enable_shared_from_this< Tunnel >, muduo::noncopyable
 	void setTunnelBuiltCb(const TunnelBuiltCallback& cb) {
 		this->tunnel_built_callback_ = cb;
 	}
+	void setOnTunnelClientMessageCb(const OnTunnelClientMessageCallback& cb) {
+		this->tunnel_client_message_callback_ = cb;
+	}
 
     private:
 	void teardown() {
@@ -92,13 +100,16 @@ class Tunnel : public std::enable_shared_from_this< Tunnel >, muduo::noncopyable
 	void onClientMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf,
 			     muduo::Timestamp) {
 		LOG_DEBUG << conn->name() << " " << buf->readableBytes();
-		if (serverConn_) {
-			serverConn_->send(buf);
-		}
-		else {
+		if (!serverConn_) {
 			buf->retrieveAll();
 			abort();
 		}
+
+		if (this->tunnel_client_message_callback_)
+			this->tunnel_client_message_callback_(this->serverConn_, this->clientConn_,
+							      buf->retrieveAllAsString());
+		else
+			serverConn_->send(buf);
 	}
 
 	enum ServerClient { kServer, kClient };
@@ -159,11 +170,12 @@ class Tunnel : public std::enable_shared_from_this< Tunnel >, muduo::noncopyable
 	}
 
     private:
-	muduo::net::TcpClient	     client_;
-	muduo::net::TcpConnectionPtr serverConn_;
-	muduo::net::TcpConnectionPtr clientConn_;
-	TunnelBuiltCallback	     tunnel_built_callback_;
-	boost::any		     context_;
+	muduo::net::TcpClient	      client_;
+	muduo::net::TcpConnectionPtr  serverConn_;
+	muduo::net::TcpConnectionPtr  clientConn_;
+	TunnelBuiltCallback	      tunnel_built_callback_;
+	OnTunnelClientMessageCallback tunnel_client_message_callback_;
+	boost::any		      context_;
 };
 typedef std::shared_ptr< Tunnel > TunnelPtr;
 

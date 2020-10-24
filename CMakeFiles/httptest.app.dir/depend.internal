@@ -350,6 +350,8 @@ CMakeFiles/httptest.app.dir/src/regextool.cc.o
  /home/howard/work/shadowhttp/src/regextool.cc
  /home/howard/work/shadowhttp/src/regextool.h
 CMakeFiles/httptest.app.dir/src/shadowhttpclient.cc.o
+ /home/howard/work/shadowhttp/src/aes256cbccodec.h
+ /home/howard/work/shadowhttp/src/aescodec.h
  /home/howard/work/shadowhttp/src/httpmessagecodec.h
  /home/howard/work/shadowhttp/src/shadowhttpclient.cc
  /home/howard/work/shadowhttp/src/shadowhttpclient.h
