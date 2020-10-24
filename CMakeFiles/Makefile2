@@ -60,39 +60,76 @@ CMAKE_SOURCE_DIR = /home/howard/work/shadowhttp
 CMAKE_BINARY_DIR = /home/howard/work/shadowhttp
 
 #=============================================================================
-# Target rules for target CMakeFiles/httptest.app.dir
+# Target rules for target CMakeFiles/sh-local.dir
 
 # All Build rule for target.
-CMakeFiles/httptest.app.dir/all:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/depend
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/howard/work/shadowhttp/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target httptest.app"
-.PHONY : CMakeFiles/httptest.app.dir/all
+CMakeFiles/sh-local.dir/all:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/depend
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/howard/work/shadowhttp/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target sh-local"
+.PHONY : CMakeFiles/sh-local.dir/all
 
 # Include target in all.
-all: CMakeFiles/httptest.app.dir/all
+all: CMakeFiles/sh-local.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/httptest.app.dir/rule: cmake_check_build_system
+CMakeFiles/sh-local.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/howard/work/shadowhttp/CMakeFiles 8
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/httptest.app.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sh-local.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/howard/work/shadowhttp/CMakeFiles 0
-.PHONY : CMakeFiles/httptest.app.dir/rule
+.PHONY : CMakeFiles/sh-local.dir/rule
 
 # Convenience name for target.
-httptest.app: CMakeFiles/httptest.app.dir/rule
+sh-local: CMakeFiles/sh-local.dir/rule
 
-.PHONY : httptest.app
-
-# clean rule for target.
-CMakeFiles/httptest.app.dir/clean:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/clean
-.PHONY : CMakeFiles/httptest.app.dir/clean
+.PHONY : sh-local
 
 # clean rule for target.
-clean: CMakeFiles/httptest.app.dir/clean
+CMakeFiles/sh-local.dir/clean:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/clean
+.PHONY : CMakeFiles/sh-local.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/sh-local.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/sh-server.dir
+
+# All Build rule for target.
+CMakeFiles/sh-server.dir/all:
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/depend
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/howard/work/shadowhttp/CMakeFiles --progress-num=9,10,11,12,13,14,15,16 "Built target sh-server"
+.PHONY : CMakeFiles/sh-server.dir/all
+
+# Include target in all.
+all: CMakeFiles/sh-server.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sh-server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/howard/work/shadowhttp/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sh-server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/howard/work/shadowhttp/CMakeFiles 0
+.PHONY : CMakeFiles/sh-server.dir/rule
+
+# Convenience name for target.
+sh-server: CMakeFiles/sh-server.dir/rule
+
+.PHONY : sh-server
+
+# clean rule for target.
+CMakeFiles/sh-server.dir/clean:
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/clean
+.PHONY : CMakeFiles/sh-server.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/sh-server.dir/clean
 
 .PHONY : clean
 

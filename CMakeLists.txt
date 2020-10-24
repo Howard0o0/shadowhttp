@@ -14,7 +14,7 @@ set(CXX_FLAGS
  -Wall
  -Wextra
  # -m32
- #-Werror
+ -Werror
  #-Wconversion
  -Wno-unused-parameter
  #-Wold-style-cast
@@ -43,9 +43,9 @@ message(STATUS ${muduo_net})
 
  
 #find head files
-include_directories( ./src) 
-include_directories( ./src/base) 
-include_directories( ./src/net) 
+#include_directories( ./src) 
+include_directories( ./src/core) 
+include_directories( ./src/util) 
 include_directories (${CURL_PATH}/include)
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
@@ -54,13 +54,15 @@ link_directories(/usr/local/lib ${MUDUO_PATH}/lib ${CURL_PATH}/lib)
  
 
 #find source files
-aux_source_directory(./src SRC_FILES)
-aux_source_directory(./src/base SRC_BASE_FILES)
-aux_source_directory(./src/net SRC_NET_FILES)
+#aux_source_directory(./src SRC_FILES)
+aux_source_directory(./src/core SRC_CORE_FILES)
+aux_source_directory(./src/util SRC_UTIL_FILES)
 
 #创建工程文件
-add_executable(httptest.app ${SRC_FILES} ${SRC_BASE_FILES} ${SRC_NET_FILES})
+add_executable(sh-local ./src/sh-local.cc ${SRC_CORE_FILES} ${SRC_UTIL_FILES})
+target_link_libraries(sh-local ${muduo_net} ${muduo_base} pthread curl boost_locale boost_log boost_log_setup boost_system crypto)
 
-target_link_libraries(httptest.app ${muduo_net} ${muduo_base} pthread curl boost_locale boost_log boost_log_setup boost_system crypto)
+add_executable(sh-server ./src/sh-server.cc ${SRC_CORE_FILES} ${SRC_UTIL_FILES})
+target_link_libraries(sh-server ${muduo_net} ${muduo_base} pthread curl boost_locale boost_log boost_log_setup boost_system crypto)
 
  
