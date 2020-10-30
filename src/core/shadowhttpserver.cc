@@ -1,6 +1,7 @@
 #include "shadowhttpserver.h"
 #include "muduo/net/Callbacks.h"
 #include "sockettool.h"
+#include "stringtool.h"
 #include <memory>
 
 using namespace nethelper;
@@ -98,7 +99,7 @@ void ShadowhttpServer::HandleHttpProxyMessage(const muduo::net::TcpConnectionPtr
 		const muduo::net::TcpConnectionPtr& clientConn =
 			boost::any_cast< const muduo::net::TcpConnectionPtr& >(conn->getContext());
 		clientConn->send(message);
-		LOG_INFO << "forward done";
+		LOG_INFO << "forward to remote server done";
 	}
 	else
 		LOG_WARN << "can't find tunnel : " << conn->name();
@@ -128,6 +129,6 @@ void ShadowhttpServer::OnClientMessage(const muduo::net::TcpConnectionPtr& serve
 	std::string enc_message = this->aes_codec_->Encrype(message);
 	// std::string enc_message = message;
 	server_conn->send(enc_message);
-	LOG_INFO << "httpforward done";
+	LOG_INFO << "forward to shadowhttp client done,len :" << enc_message.size();
 }
 /* end of private methods */

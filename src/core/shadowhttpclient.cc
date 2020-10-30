@@ -3,6 +3,7 @@
 #include "muduo/net/Callbacks.h"
 #include "muduo/net/TcpConnection.h"
 #include "sockettool.h"
+#include "stringtool.h"
 #include <memory>
 #include <openssl/des.h>
 
@@ -38,6 +39,20 @@ void ShadowhttpClient::OnServerConnection(const muduo::net::TcpConnectionPtr& co
 	LOG_INFO << conn->name() << (conn->connected() ? " UP" : " DOWN");
 	if (conn->connected()) {
 		conn->setTcpNoDelay(true);
+		conn->stopRead();
+		TunnelPtr tunnel = std::make_shared< Tunnel >(
+			&this->eventloop_,
+			muduo::net::InetAddress(this->server_address_.ip,
+						this->server_address_.port),
+			conn);
+		using std::placeholders::_1;
+		using std::placeholders::_2;
+		using std::placeholders::_3;
+		tunnel->setOnTunnelClientMessageCb(
+			std::bind(&ShadowhttpClient::OnClientMessage, this, _1, _2, _3));
+		tunnel->setup();
+		tunnel->connect();
+		this->tunnels_[ conn->name() ] = tunnel;
 	}
 	else {
 		std::map< std::string, TunnelPtr >::iterator it = this->tunnels_.find(conn->name());
@@ -53,26 +68,7 @@ void ShadowhttpClient::OnServerMessage(const muduo::net::TcpConnectionPtr& conn,
 	std::string message = buf->retrieveAllAsString();
 	LOG_DEBUG << "receive message from proxy client : \r\n" << message;
 
-	if (this->tunnels_.find(conn->name()) == this->tunnels_.end()) {
-		/* connect to shadowhttp-server */
-		TunnelPtr tunnel = std::make_shared< Tunnel >(
-			&this->eventloop_,
-			muduo::net::InetAddress(this->server_address_.ip,
-						this->server_address_.port),
-			conn);
-		using std::placeholders::_1;
-		using std::placeholders::_2;
-		using std::placeholders::_3;
-		tunnel->setOnTunnelClientMessageCb(
-			std::bind(&ShadowhttpClient::OnClientMessage, this, _1, _2, _3));
-		tunnel->setContext(message);
-		tunnel->setTunnelBuiltCb(
-			std::bind(&ShadowhttpClient::OnTunnelBuilt, this, _1, _2, _3));
-		tunnel->setup();
-		tunnel->connect();
-		this->tunnels_[ conn->name() ] = tunnel;
-	}
-	else if (!conn->getContext().empty()) {
+	if (!conn->getContext().empty()) {
 		const muduo::net::TcpConnectionPtr& clientConn =
 			boost::any_cast< const muduo::net::TcpConnectionPtr& >(conn->getContext());
 		std::string enc_message = this->aes_codec_->Encrype(message);
@@ -80,8 +76,6 @@ void ShadowhttpClient::OnServerMessage(const muduo::net::TcpConnectionPtr& conn,
 		clientConn->send(enc_message);
 		LOG_INFO << "forward to sh-server done";
 	}
-	else
-		LOG_WARN << "can't find tunnel : " << conn->name();
 }
 
 void ShadowhttpClient::OnClientMessage(const muduo::net::TcpConnectionPtr& server_conn,

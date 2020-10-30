@@ -1,4 +1,6 @@
 #include "aes256cbccodec.h"
+#include "padding.h"
+#include <memory>
 #include <openssl/aes.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,18 +40,20 @@ std::string AES256cbcCodec::AES256cbcEncode(const std::string& data, const std::
 	unsigned int data_length = data_bak.length();
 
 	// ZeroPadding
-	int padding = 0;
-	if (data_bak.length() % (AES_BLOCK_SIZE) > 0) {
-		padding = AES_BLOCK_SIZE - data_bak.length() % (AES_BLOCK_SIZE);
-	}
+	// int padding = 0;
+	// if (data_bak.length() % (AES_BLOCK_SIZE) > 0) {
+	// 	padding = AES_BLOCK_SIZE - data_bak.length() % (AES_BLOCK_SIZE);
+	// }
+	// data_length += padding;
+	// while (padding > 0) {
+	// 	data_bak += '\0';
+	// 	padding--;
+	// }
 
-	data_length += padding;
-	while (padding > 0) {
-		data_bak += '\0';
-		padding--;
-	}
+	/* padding */
+	this->padding_->FillPadding(data_bak);
 
-	for (unsigned int i = 0; i < data_length / (AES_BLOCK_SIZE); i++) {
+	for (unsigned int i = 0; i < data_bak.size() / (AES_BLOCK_SIZE); i++) {
 		std::string   str16 = data_bak.substr(i * AES_BLOCK_SIZE, AES_BLOCK_SIZE);
 		unsigned char out[ AES_BLOCK_SIZE ];
 		::memset(out, 0, AES_BLOCK_SIZE);
@@ -82,6 +86,8 @@ std::string AES256cbcCodec::AES256cbcDecode(const std::string& strData,
 				&aes_key, iv, AES_DECRYPT);
 		strRet += std::string(( const char* )out, AES_BLOCK_SIZE);
 	}
+
+	this->padding_->ErasePadding(strRet);
 	return strRet;
 }
 
