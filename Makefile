@@ -111,152 +111,324 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named httptest.app
+# Target rules for targets named sh-local
 
 # Build rule for target.
-httptest.app: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 httptest.app
-.PHONY : httptest.app
+sh-local: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sh-local
+.PHONY : sh-local
 
 # fast build rule for target.
-httptest.app/fast:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/build
-.PHONY : httptest.app/fast
+sh-local/fast:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/build
+.PHONY : sh-local/fast
 
-src/httpmessagecodec.o: src/httpmessagecodec.cc.o
+#=============================================================================
+# Target rules for targets named sh-server
 
-.PHONY : src/httpmessagecodec.o
+# Build rule for target.
+sh-server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sh-server
+.PHONY : sh-server
 
-# target to build an object file
-src/httpmessagecodec.cc.o:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/httpmessagecodec.cc.o
-.PHONY : src/httpmessagecodec.cc.o
+# fast build rule for target.
+sh-server/fast:
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/build
+.PHONY : sh-server/fast
 
-src/httpmessagecodec.i: src/httpmessagecodec.cc.i
+src/core/aes256cbccodec.o: src/core/aes256cbccodec.cc.o
 
-.PHONY : src/httpmessagecodec.i
-
-# target to preprocess a source file
-src/httpmessagecodec.cc.i:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/httpmessagecodec.cc.i
-.PHONY : src/httpmessagecodec.cc.i
-
-src/httpmessagecodec.s: src/httpmessagecodec.cc.s
-
-.PHONY : src/httpmessagecodec.s
-
-# target to generate assembly for a file
-src/httpmessagecodec.cc.s:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/httpmessagecodec.cc.s
-.PHONY : src/httpmessagecodec.cc.s
-
-src/main.o: src/main.cc.o
-
-.PHONY : src/main.o
+.PHONY : src/core/aes256cbccodec.o
 
 # target to build an object file
-src/main.cc.o:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/main.cc.o
-.PHONY : src/main.cc.o
+src/core/aes256cbccodec.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/aes256cbccodec.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/aes256cbccodec.cc.o
+.PHONY : src/core/aes256cbccodec.cc.o
 
-src/main.i: src/main.cc.i
+src/core/aes256cbccodec.i: src/core/aes256cbccodec.cc.i
 
-.PHONY : src/main.i
+.PHONY : src/core/aes256cbccodec.i
 
 # target to preprocess a source file
-src/main.cc.i:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/main.cc.i
-.PHONY : src/main.cc.i
+src/core/aes256cbccodec.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/aes256cbccodec.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/aes256cbccodec.cc.i
+.PHONY : src/core/aes256cbccodec.cc.i
 
-src/main.s: src/main.cc.s
+src/core/aes256cbccodec.s: src/core/aes256cbccodec.cc.s
 
-.PHONY : src/main.s
+.PHONY : src/core/aes256cbccodec.s
 
 # target to generate assembly for a file
-src/main.cc.s:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/main.cc.s
-.PHONY : src/main.cc.s
+src/core/aes256cbccodec.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/aes256cbccodec.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/aes256cbccodec.cc.s
+.PHONY : src/core/aes256cbccodec.cc.s
 
-src/regextool.o: src/regextool.cc.o
+src/core/httpmessagecodec.o: src/core/httpmessagecodec.cc.o
 
-.PHONY : src/regextool.o
+.PHONY : src/core/httpmessagecodec.o
 
 # target to build an object file
-src/regextool.cc.o:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/regextool.cc.o
-.PHONY : src/regextool.cc.o
+src/core/httpmessagecodec.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/httpmessagecodec.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/httpmessagecodec.cc.o
+.PHONY : src/core/httpmessagecodec.cc.o
 
-src/regextool.i: src/regextool.cc.i
+src/core/httpmessagecodec.i: src/core/httpmessagecodec.cc.i
 
-.PHONY : src/regextool.i
+.PHONY : src/core/httpmessagecodec.i
 
 # target to preprocess a source file
-src/regextool.cc.i:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/regextool.cc.i
-.PHONY : src/regextool.cc.i
+src/core/httpmessagecodec.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/httpmessagecodec.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/httpmessagecodec.cc.i
+.PHONY : src/core/httpmessagecodec.cc.i
 
-src/regextool.s: src/regextool.cc.s
+src/core/httpmessagecodec.s: src/core/httpmessagecodec.cc.s
 
-.PHONY : src/regextool.s
+.PHONY : src/core/httpmessagecodec.s
 
 # target to generate assembly for a file
-src/regextool.cc.s:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/regextool.cc.s
-.PHONY : src/regextool.cc.s
+src/core/httpmessagecodec.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/httpmessagecodec.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/httpmessagecodec.cc.s
+.PHONY : src/core/httpmessagecodec.cc.s
 
-src/shadowhttpserver.o: src/shadowhttpserver.cc.o
+src/core/padding.o: src/core/padding.cc.o
 
-.PHONY : src/shadowhttpserver.o
+.PHONY : src/core/padding.o
 
 # target to build an object file
-src/shadowhttpserver.cc.o:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/shadowhttpserver.cc.o
-.PHONY : src/shadowhttpserver.cc.o
+src/core/padding.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/padding.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/padding.cc.o
+.PHONY : src/core/padding.cc.o
 
-src/shadowhttpserver.i: src/shadowhttpserver.cc.i
+src/core/padding.i: src/core/padding.cc.i
 
-.PHONY : src/shadowhttpserver.i
+.PHONY : src/core/padding.i
 
 # target to preprocess a source file
-src/shadowhttpserver.cc.i:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/shadowhttpserver.cc.i
-.PHONY : src/shadowhttpserver.cc.i
+src/core/padding.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/padding.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/padding.cc.i
+.PHONY : src/core/padding.cc.i
 
-src/shadowhttpserver.s: src/shadowhttpserver.cc.s
+src/core/padding.s: src/core/padding.cc.s
 
-.PHONY : src/shadowhttpserver.s
+.PHONY : src/core/padding.s
 
 # target to generate assembly for a file
-src/shadowhttpserver.cc.s:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/shadowhttpserver.cc.s
-.PHONY : src/shadowhttpserver.cc.s
+src/core/padding.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/padding.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/padding.cc.s
+.PHONY : src/core/padding.cc.s
 
-src/sockettool.o: src/sockettool.cc.o
+src/core/shadowhttpclient.o: src/core/shadowhttpclient.cc.o
 
-.PHONY : src/sockettool.o
+.PHONY : src/core/shadowhttpclient.o
 
 # target to build an object file
-src/sockettool.cc.o:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/sockettool.cc.o
-.PHONY : src/sockettool.cc.o
+src/core/shadowhttpclient.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/shadowhttpclient.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/shadowhttpclient.cc.o
+.PHONY : src/core/shadowhttpclient.cc.o
 
-src/sockettool.i: src/sockettool.cc.i
+src/core/shadowhttpclient.i: src/core/shadowhttpclient.cc.i
 
-.PHONY : src/sockettool.i
+.PHONY : src/core/shadowhttpclient.i
 
 # target to preprocess a source file
-src/sockettool.cc.i:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/sockettool.cc.i
-.PHONY : src/sockettool.cc.i
+src/core/shadowhttpclient.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/shadowhttpclient.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/shadowhttpclient.cc.i
+.PHONY : src/core/shadowhttpclient.cc.i
 
-src/sockettool.s: src/sockettool.cc.s
+src/core/shadowhttpclient.s: src/core/shadowhttpclient.cc.s
 
-.PHONY : src/sockettool.s
+.PHONY : src/core/shadowhttpclient.s
 
 # target to generate assembly for a file
-src/sockettool.cc.s:
-	$(MAKE) -f CMakeFiles/httptest.app.dir/build.make CMakeFiles/httptest.app.dir/src/sockettool.cc.s
-.PHONY : src/sockettool.cc.s
+src/core/shadowhttpclient.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/shadowhttpclient.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/shadowhttpclient.cc.s
+.PHONY : src/core/shadowhttpclient.cc.s
+
+src/core/shadowhttpserver.o: src/core/shadowhttpserver.cc.o
+
+.PHONY : src/core/shadowhttpserver.o
+
+# target to build an object file
+src/core/shadowhttpserver.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/shadowhttpserver.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/shadowhttpserver.cc.o
+.PHONY : src/core/shadowhttpserver.cc.o
+
+src/core/shadowhttpserver.i: src/core/shadowhttpserver.cc.i
+
+.PHONY : src/core/shadowhttpserver.i
+
+# target to preprocess a source file
+src/core/shadowhttpserver.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/shadowhttpserver.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/shadowhttpserver.cc.i
+.PHONY : src/core/shadowhttpserver.cc.i
+
+src/core/shadowhttpserver.s: src/core/shadowhttpserver.cc.s
+
+.PHONY : src/core/shadowhttpserver.s
+
+# target to generate assembly for a file
+src/core/shadowhttpserver.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/core/shadowhttpserver.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/core/shadowhttpserver.cc.s
+.PHONY : src/core/shadowhttpserver.cc.s
+
+src/sh-local.o: src/sh-local.cc.o
+
+.PHONY : src/sh-local.o
+
+# target to build an object file
+src/sh-local.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/sh-local.cc.o
+.PHONY : src/sh-local.cc.o
+
+src/sh-local.i: src/sh-local.cc.i
+
+.PHONY : src/sh-local.i
+
+# target to preprocess a source file
+src/sh-local.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/sh-local.cc.i
+.PHONY : src/sh-local.cc.i
+
+src/sh-local.s: src/sh-local.cc.s
+
+.PHONY : src/sh-local.s
+
+# target to generate assembly for a file
+src/sh-local.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/sh-local.cc.s
+.PHONY : src/sh-local.cc.s
+
+src/sh-server.o: src/sh-server.cc.o
+
+.PHONY : src/sh-server.o
+
+# target to build an object file
+src/sh-server.cc.o:
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/sh-server.cc.o
+.PHONY : src/sh-server.cc.o
+
+src/sh-server.i: src/sh-server.cc.i
+
+.PHONY : src/sh-server.i
+
+# target to preprocess a source file
+src/sh-server.cc.i:
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/sh-server.cc.i
+.PHONY : src/sh-server.cc.i
+
+src/sh-server.s: src/sh-server.cc.s
+
+.PHONY : src/sh-server.s
+
+# target to generate assembly for a file
+src/sh-server.cc.s:
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/sh-server.cc.s
+.PHONY : src/sh-server.cc.s
+
+src/util/regextool.o: src/util/regextool.cc.o
+
+.PHONY : src/util/regextool.o
+
+# target to build an object file
+src/util/regextool.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/regextool.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/regextool.cc.o
+.PHONY : src/util/regextool.cc.o
+
+src/util/regextool.i: src/util/regextool.cc.i
+
+.PHONY : src/util/regextool.i
+
+# target to preprocess a source file
+src/util/regextool.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/regextool.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/regextool.cc.i
+.PHONY : src/util/regextool.cc.i
+
+src/util/regextool.s: src/util/regextool.cc.s
+
+.PHONY : src/util/regextool.s
+
+# target to generate assembly for a file
+src/util/regextool.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/regextool.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/regextool.cc.s
+.PHONY : src/util/regextool.cc.s
+
+src/util/sockettool.o: src/util/sockettool.cc.o
+
+.PHONY : src/util/sockettool.o
+
+# target to build an object file
+src/util/sockettool.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/sockettool.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/sockettool.cc.o
+.PHONY : src/util/sockettool.cc.o
+
+src/util/sockettool.i: src/util/sockettool.cc.i
+
+.PHONY : src/util/sockettool.i
+
+# target to preprocess a source file
+src/util/sockettool.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/sockettool.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/sockettool.cc.i
+.PHONY : src/util/sockettool.cc.i
+
+src/util/sockettool.s: src/util/sockettool.cc.s
+
+.PHONY : src/util/sockettool.s
+
+# target to generate assembly for a file
+src/util/sockettool.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/sockettool.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/sockettool.cc.s
+.PHONY : src/util/sockettool.cc.s
+
+src/util/stringtool.o: src/util/stringtool.cc.o
+
+.PHONY : src/util/stringtool.o
+
+# target to build an object file
+src/util/stringtool.cc.o:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/stringtool.cc.o
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/stringtool.cc.o
+.PHONY : src/util/stringtool.cc.o
+
+src/util/stringtool.i: src/util/stringtool.cc.i
+
+.PHONY : src/util/stringtool.i
+
+# target to preprocess a source file
+src/util/stringtool.cc.i:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/stringtool.cc.i
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/stringtool.cc.i
+.PHONY : src/util/stringtool.cc.i
+
+src/util/stringtool.s: src/util/stringtool.cc.s
+
+.PHONY : src/util/stringtool.s
+
+# target to generate assembly for a file
+src/util/stringtool.cc.s:
+	$(MAKE) -f CMakeFiles/sh-local.dir/build.make CMakeFiles/sh-local.dir/src/util/stringtool.cc.s
+	$(MAKE) -f CMakeFiles/sh-server.dir/build.make CMakeFiles/sh-server.dir/src/util/stringtool.cc.s
+.PHONY : src/util/stringtool.cc.s
 
 # Help Target
 help:
@@ -265,23 +437,39 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... httptest.app"
 	@echo "... edit_cache"
-	@echo "... src/httpmessagecodec.o"
-	@echo "... src/httpmessagecodec.i"
-	@echo "... src/httpmessagecodec.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
-	@echo "... src/regextool.o"
-	@echo "... src/regextool.i"
-	@echo "... src/regextool.s"
-	@echo "... src/shadowhttpserver.o"
-	@echo "... src/shadowhttpserver.i"
-	@echo "... src/shadowhttpserver.s"
-	@echo "... src/sockettool.o"
-	@echo "... src/sockettool.i"
-	@echo "... src/sockettool.s"
+	@echo "... sh-local"
+	@echo "... sh-server"
+	@echo "... src/core/aes256cbccodec.o"
+	@echo "... src/core/aes256cbccodec.i"
+	@echo "... src/core/aes256cbccodec.s"
+	@echo "... src/core/httpmessagecodec.o"
+	@echo "... src/core/httpmessagecodec.i"
+	@echo "... src/core/httpmessagecodec.s"
+	@echo "... src/core/padding.o"
+	@echo "... src/core/padding.i"
+	@echo "... src/core/padding.s"
+	@echo "... src/core/shadowhttpclient.o"
+	@echo "... src/core/shadowhttpclient.i"
+	@echo "... src/core/shadowhttpclient.s"
+	@echo "... src/core/shadowhttpserver.o"
+	@echo "... src/core/shadowhttpserver.i"
+	@echo "... src/core/shadowhttpserver.s"
+	@echo "... src/sh-local.o"
+	@echo "... src/sh-local.i"
+	@echo "... src/sh-local.s"
+	@echo "... src/sh-server.o"
+	@echo "... src/sh-server.i"
+	@echo "... src/sh-server.s"
+	@echo "... src/util/regextool.o"
+	@echo "... src/util/regextool.i"
+	@echo "... src/util/regextool.s"
+	@echo "... src/util/sockettool.o"
+	@echo "... src/util/sockettool.i"
+	@echo "... src/util/sockettool.s"
+	@echo "... src/util/stringtool.o"
+	@echo "... src/util/stringtool.i"
+	@echo "... src/util/stringtool.s"
 .PHONY : help
 
 
